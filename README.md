@@ -1,6 +1,8 @@
 # infoscrapper
 
 # Setup
+
+
 ## virtual environment
 ### windows
 
@@ -13,6 +15,20 @@ venv_infoscrapper\Scripts>activate.bat
 	deactivate
 * Workon
 	workon venv_infoscrapper
-* install required modules 
-** Pip Install
-	pip install django
+
+### install required modules
+* activate virtual environment
+
+* Pip Install
+	pip3 install django
+    pip3 install pandas
+    pip3 install netmiko
+
+### Django setup
+
+#### django project init
+django-admin startproject infoscrapper .
+
+#### Django app with project
+
+python manage.py startapp infoscrapperapp
