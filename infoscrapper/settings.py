@@ -25,7 +25,7 @@ SECRET_KEY = 'iu4e+fok)^tg9^456d8(4*u=_8(y)omz0w+9#33et%(&+=vxx('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -105,7 +105,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Australia/Melbourne'
 
 USE_I18N = True
 
