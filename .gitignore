@@ -1,0 +1,29 @@
+# Add any directories, files, or patterns you don't want to be tracked by version control
+
+#ignore data files (files containing source data)
+*.dat
+#ignore output files
+*.out
+
+#ignore environment variables
+venv_*
+
+#ignore django app files
+*.pyc
+*~
+__pycache__
+db.sqlite3
+/static
+.DS_Store
+
+#ignore IDE cache files
+/.vscode
+
+
+# But not these files...
+## mac OUI global database
+!oui_base16_eqseperator.dat
+
+## test files
+!cisco-mac-table.dat
+!macnp_port.dat
