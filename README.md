@@ -23,6 +23,7 @@ venv_infoscrapper\Scripts>activate.bat
 	pip3 install django
     pip3 install pandas
     pip3 install netmiko
+    pip3 install pyyaml
 
 ### Django setup
 
