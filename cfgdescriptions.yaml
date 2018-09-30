@@ -1,0 +1,14 @@
+---
+  outputcsv:
+    headings:
+      - bandwidth
+      - iosversion
+  router:
+    bandwidth:
+      bandwidthcmd: show run interface | i bandwdith
+    iosver: 
+      iosvercmd: show ver | i version
+
+  nexus:
+    bgpneigh:
+      bgpneigcmd: show ip bgp neigbours
