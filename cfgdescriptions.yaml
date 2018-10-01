@@ -4,7 +4,7 @@
       - bandwidth
       - iosversion
   router:
-    bandwidth:
+    bandwidth: &ciscobandwidth
       bandwidthcmd: show run interface | i bandwdith
     iosver: 
       iosvercmd: show ver | i version
@@ -12,3 +12,10 @@
   nexus:
     bgpneigh:
       bgpneigcmd: show ip bgp neigbours
+    bandwidth: *ciscobandwidth
+  
+  switch:
+    bandwidth: *ciscobandwidth
+    mactable:
+      mactablecmd: show mac address table
+
