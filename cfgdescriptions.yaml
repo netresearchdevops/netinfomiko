@@ -2,7 +2,18 @@
   outputcsv:
     headings:
       - bandwidth
-      - iosversion
+      - bgp as for telstra
+      - bgp as for VP router
+      - Networks aggregate behind the router (Legacy and SOE supernet)
+      
+      NOt soe rolled out (Telstra router)
+      - bandwidth
+      - bgp as for telstra
+      - Telstra hostname
+      - FNN number
+      - snmp site location
+      - Networks aggregate behind the router (Legacy)
+
   router:
     bandwidth: &ciscobandwidth
       bandwidthcmd: show run interface | i bandwdith

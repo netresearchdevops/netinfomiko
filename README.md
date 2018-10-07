@@ -9,7 +9,8 @@
             - YAML file with definistions of commands to be run relevant to any headings above
         - output.csv
             - name of the output file in csv format
-        
+## example
+python infoscrapmodule.py devicelistgsn3.csv cfgdescswitch.yaml
 
 
 # Setup

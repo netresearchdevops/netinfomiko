@@ -1,0 +1,33 @@
+---
+  outputcsv:
+    headings:
+      - wan bandwidth
+      - vlan1 ip
+      - vlan2 ip
+      - snmp locations
+      
+  switch:
+    wan bandwidth: &ciscobandwidth
+      clicmd: show run | i bandwdith
+      regexmatch: ^bandwidth ([0-9]+)
+      # regex pattern in first paranthese will be returned due to usage of match.group(1) in code
+    vlan1 ip: &intipaddress 
+      clicmd: show run vlan1 | i address
+      regexmatch: ^ip address*
+    vlan2 ip: *intipaddress
+      # clicmd: show run vlan2 | i address
+    snmp location: 
+      clicmd: show run | i snmp location
+      regexmatch: ^snmp location *
+
+  nexus:
+    bgpneigh:
+      clicmd: show ip bgp neigbours
+      regexmatch: ^[0-9]*
+    bandwidth: *ciscobandwidth
+  
+  router:
+    bandwidth: *ciscobandwidth
+    mactable:
+      clicmd: show mac address table
+      regexmatch: ^[0-9]*
