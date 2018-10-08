@@ -97,16 +97,17 @@ def cmdrun(devname, kdev, kcmd):
     cmdout = {}
 
     try:
-        # netconn = ConnectHandler(**kdev)
-        print(kdev)
+        netconn = ConnectHandler(**kdev)
+        # print(kdev)
 
         for cmditem in kcmd:
-            print(cmditem)
-            print(kcmd[cmditem]['clicmd'])
-            print(kcmd[cmditem]['regexmatch'])
+            # print(cmditem)
+            # print(kcmd[cmditem]['clicmd'])
+            # print(kcmd[cmditem]['regexmatch'])
 
-            # netcmdout = netconn.send_command(kcmd[cmditem]['clicmd'])
-            netcmdout = "bandwidth 10000"
+            netcmdout = netconn.send_command(kcmd[cmditem]['clicmd'])
+            # netcmdout = "bandwidth 10000"
+            print(netcmdout)
 
             #outone = re.search(r"^bandwidth ([0-9]+)", "bandwidth 4000")
             outone = re.search(kcmd[cmditem]['regexmatch'], netcmdout)
@@ -118,10 +119,15 @@ def cmdrun(devname, kdev, kcmd):
                 print(errorout)
                 cmdout[cmditem]=errorout
 
-        # netconn.disconnect()
+        netconn.disconnect()
     
-    except (ValueError, IOError, TimeoutError) as err:
-        cmdout['error'] = err
+    except Exception as err:
+        cmdout['connstatus'] = 'Failed'
+        cmdout['notes'] = err
+    
+    else:
+        cmdout['connstatus'] = 'Success'
+        cmdout['notes'] = 'None'
 
     print(cmdout)
  
@@ -133,10 +139,6 @@ def cmdrun(devname, kdev, kcmd):
     
     return cmdout
 
-
-
-
-        
 
 def main():
     # totalcmdops = len(sys.argv)

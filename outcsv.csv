@@ -1,6 +1,6 @@
-hostname,ipaddress,devtype,connport,conntype,sitename,wan bandwidth,vlan1 ip,vlan2 ip,snmp location
-MELS1R1,192.168.239.135,router,5001,telnet,MEL,10000,NaN,NaN,ERROR: no such group
-MELS1R2,192.168.239.135,router,5002,telnet,MEL,10000,NaN,NaN,ERROR: no such group
-SYDS1R1,192.168.239.135,router,5003,telnet,SYD,10000,NaN,NaN,ERROR: no such group
-SYDS2R1,192.168.239.135,switch,5004,ssh,SYD,10000,ERROR: 'NoneType' object has no attribute 'group',ERROR: 'NoneType' object has no attribute 'group',ERROR: 'NoneType' object has no attribute 'group'
-PERS3R4,192.168.239.135,switch,5005,ssh,PER,10000,ERROR: 'NoneType' object has no attribute 'group',ERROR: 'NoneType' object has no attribute 'group',ERROR: 'NoneType' object has no attribute 'group'
+hostname,ipaddress,devtype,connport,conntype,sitename,wan bandwidth,vlan1 ip,vlan2 ip,snmp location,connstatus,notes
+MELS1R1,192.168.239.135,router,5006,telnet,MEL,150000,NaN,NaN,"300 Flinders street, Melbourne, Vic 3000",Success,None
+SYDS2R1,192.168.239.135,router,5002,telnet,SYD,150000,NaN,NaN,"300 Dawson st, Sydney, NSW 2000",Success,None
+SYDS2S1,192.168.239.135,switch,5003,telnet,SYD,10000,10.221.21.1 255.255.255.0,10.221.21.1 255.255.255.0,"300 Dawson st, Sydney, NSW 2000",Success,None
+MELS1S1,192.168.239.135,switch,5004,telnet,MEL,20000,10.201.2.1 255.255.254.0,10.201.2.1 255.255.254.0,"300 Flinders street, Melbourne, Vic 3000",Success,None
+PERS3S4,192.168.239.135,switch,5005,ssh,PER,NaN,NaN,NaN,NaN,Failed,Connection to device timed-out: cisco_ios 192.168.239.135:5005
