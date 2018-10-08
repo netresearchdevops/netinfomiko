@@ -4,6 +4,7 @@ import yaml
 from netmiko import ConnectHandler
 import getpass
 import re
+from datetime import datetime
 
 def loadcsvdict(filenam, indexcolnam):
     # Load the csv file and output list of dictionary
@@ -74,27 +75,65 @@ def connruncmd(cmdlist, **devicecon):
     return cmdout
 
 def cmdrun(kdev, kcmd):
+    """ Connect to the device and run the list of commands
+
+    - **devcecon is dictionary of below format 
+    r2 = {
+    'device_type': 'cisco_ios_telnet', # device_type = 'cisco_ios' for SSH
+    'ip':   '192.168.239.135',
+    'username': 'test',
+    'password': 'password',
+    'port' : 5004,          # optional, defaults to 22
+    'secret': 'secret',     # optional, defaults to ''
+    'verbose': False,       # optional, defaults to False
+        }
+
+    - *cmdlist is the list of commands to run
+    """
+
     print("cmdrun\n\n")
     print(kdev)
 
     cmdout = {}
 
-    for cmditem in kcmd:
-        print(cmditem)
-        print(kcmd[cmditem]['clicmd'])
-        print(kcmd[cmditem]['regexmatch'])
+    try:
+        # netconn = ConnectHandler(**kdev)
+        print(kdev)
 
-        #outone = re.search(r"^bandwidth ([0-9]+)", "bandwidth 4000")
-        outone = re.search(kcmd[cmditem]['regexmatch'], "bandwidth 4000")
-        try:
-            print(outone.group(1))
-        except (IndexError, AttributeError) as err:
-            print(err)
+        for cmditem in kcmd:
+            print(cmditem)
+            print(kcmd[cmditem]['clicmd'])
+            print(kcmd[cmditem]['regexmatch'])
+
+            # netcmdout = netconn.send_command(kcmd[cmditem]['clicmd'])
+            netcmdout = "bandwidth 10000"
+
+            #outone = re.search(r"^bandwidth ([0-9]+)", "bandwidth 4000")
+            outone = re.search(kcmd[cmditem]['regexmatch'], netcmdout)
+            try:
+                print(outone.group(1))
+                cmdout[cmditem]=outone.group(1)
+            except (IndexError, AttributeError) as err:
+                errorout = "ERROR: "+str(err)
+                print(errorout)
+                cmdout[cmditem]=errorout
+
+        # netconn.disconnect()
+    
+    except (ValueError, IOError, TimeoutError) as err:
+        cmdout['error'] = err
+
+    print(cmdout)
+    return cmdout
+
         
 
 def main():
     # totalcmdops = len(sys.argv)
     # cmdops = sys.argv
+
+    start_time = datetime.now()
+
 
     # get username credentials
     netuser = input('Enter username: ')
@@ -161,7 +200,17 @@ def main():
         #print(cmddict)
         #print("\n")
 
-        cmdrun(devtoconn, cmddict)
+        netconncmdout = cmdrun(devtoconn, cmddict)
+        print(netconncmdout)
+
+        for wrcmdout in netconncmdout:
+            print(netconncmdout[wrcmdout])
+            print(wrcmdout)
+
+            csvfileload.loc[devitem, wrcmdout] = netconncmdout[wrcmdout]
+
+    #print("data frame bandwidth")
+    # print(csvfileload['wan bandwidth'])
 
     r2 = {
     'device_type': 'cisco_ios_telnet',
@@ -173,11 +222,14 @@ def main():
     'verbose': False,       # optional, defaults to False
     }
 
-    r2cmd = ['show ver', 'show int desc']
+    # r2cmd = ['show ver', 'show int desc']
 
     # connruncmd(r2cmd, **r2)
 
-    # writedftocsv(csvfileload, 'outcsv.csv')
+    writedftocsv(csvfileload, 'outcsv.csv')
+
+    print ("\nElapsed time to  run commands: {}s".format(str(datetime.now() - start_time)))
+
 
 if __name__ == '__main__':
     main()

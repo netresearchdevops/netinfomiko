@@ -1,6 +1,6 @@
-hostname,ipaddress,devtype,conntype,connport,sitename
-MELS1R1,192.168.163.10,router,2001,telnet,MEL
-MELS1R2,192.168.163.20,router,2001,telnet,MEL
-SYDS1R1,192.168.163.11,router,2001,telnet,SYD
-SYDS2R1,192.168.163.21,router,2001,ssh,SYD
-PERS3R4,192.168.163.32,router,2001,ssh,PER
+hostname,ipaddress,devtype,connport,conntype,sitename,wan bandwidth,vlan1 ip,vlan2 ip,snmp location
+MELS1R1,192.168.239.135,router,5001,telnet,MEL,10000,NaN,NaN,ERROR: no such group
+MELS1R2,192.168.239.135,router,5002,telnet,MEL,10000,NaN,NaN,ERROR: no such group
+SYDS1R1,192.168.239.135,router,5003,telnet,SYD,10000,NaN,NaN,ERROR: no such group
+SYDS2R1,192.168.239.135,switch,5004,ssh,SYD,10000,ERROR: 'NoneType' object has no attribute 'group',ERROR: 'NoneType' object has no attribute 'group',ERROR: 'NoneType' object has no attribute 'group'
+PERS3R4,192.168.239.135,switch,5005,ssh,PER,10000,ERROR: 'NoneType' object has no attribute 'group',ERROR: 'NoneType' object has no attribute 'group',ERROR: 'NoneType' object has no attribute 'group'

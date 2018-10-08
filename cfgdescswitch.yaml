@@ -4,7 +4,7 @@
       - wan bandwidth
       - vlan1 ip
       - vlan2 ip
-      - snmp locations
+      - snmp location
       
   switch:
     wan bandwidth: &ciscobandwidth
@@ -27,7 +27,7 @@
     bandwidth: *ciscobandwidth
   
   router:
-    bandwidth: *ciscobandwidth
-    mactable:
+    wan bandwidth: *ciscobandwidth
+    snmp location:
       clicmd: show mac address table
       regexmatch: ^[0-9]*
