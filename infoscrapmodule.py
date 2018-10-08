@@ -1,10 +1,10 @@
 import sys
 import pandas as pd
 import yaml
-from netmiko import ConnectHandler
 import getpass
 import re
 from datetime import datetime
+from netmiko import ConnectHandler
 
 def loadcsvdict(filenam, indexcolnam):
     # Load the csv file and output list of dictionary
@@ -74,7 +74,7 @@ def connruncmd(cmdlist, **devicecon):
     print(cmdout)
     return cmdout
 
-def cmdrun(kdev, kcmd):
+def cmdrun(devname, kdev, kcmd):
     """ Connect to the device and run the list of commands
 
     - **devcecon is dictionary of below format 
@@ -124,7 +124,17 @@ def cmdrun(kdev, kcmd):
         cmdout['error'] = err
 
     print(cmdout)
+ 
+    for wrcmdout in cmdout:
+        print(cmdout[wrcmdout])
+        print(wrcmdout)
+
+        csvfileload.loc[devname, wrcmdout] = cmdout[wrcmdout]
+    
     return cmdout
+
+
+
 
         
 
@@ -141,6 +151,7 @@ def main():
     netenablepass = getpass.getpass(prompt='Enter enable password: ')
 
 
+    global csvfileload 
     csvfileload = loadcsvdict(sys.argv[1], 'hostname')
     # print(totalcmdops, cmdops)
     # print(type(csvfileload))
@@ -173,7 +184,7 @@ def main():
                 print("\t\t"+cmd+"\n\t\t"+regex)
                 #for i in devfieldlist:
                 #    print(i, devfieldlist[i])
-            switchcmdlist = cfgyamlfileload[dev]
+            # switchcmdlist = cfgyamlfileload[dev]
             # print(switchcmdlist)
         else:
             print('no load')
@@ -200,18 +211,13 @@ def main():
         #print(cmddict)
         #print("\n")
 
-        netconncmdout = cmdrun(devtoconn, cmddict)
+        netconncmdout = cmdrun(devitem, devtoconn, cmddict)
         print(netconncmdout)
-
-        for wrcmdout in netconncmdout:
-            print(netconncmdout[wrcmdout])
-            print(wrcmdout)
-
-            csvfileload.loc[devitem, wrcmdout] = netconncmdout[wrcmdout]
 
     #print("data frame bandwidth")
     # print(csvfileload['wan bandwidth'])
 
+    """
     r2 = {
     'device_type': 'cisco_ios_telnet',
     'ip':   '192.168.239.135',
@@ -222,6 +228,7 @@ def main():
     'verbose': False,       # optional, defaults to False
     }
 
+    """
     # r2cmd = ['show ver', 'show int desc']
 
     # connruncmd(r2cmd, **r2)
