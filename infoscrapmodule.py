@@ -228,6 +228,9 @@ def main():
 
     writedftocsv(csvfileload, 'outcsv.csv')
 
+    print("start time: " + str(start_time))
+    endtime = datetime.now()
+    print("end time: " + str(endtime))
     print ("\nElapsed time to  run commands: {}s".format(str(datetime.now() - start_time)))
 
 
