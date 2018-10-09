@@ -100,6 +100,9 @@ def cmdrun(devname, kdev, kcmd, output_q):
 
     try:
         netconn = ConnectHandler(**kdev)
+        netconn.enable()
+        netconn.find_prompt()
+
         # print(kdev)
 
         for cmditem in kcmd:
@@ -108,8 +111,9 @@ def cmdrun(devname, kdev, kcmd, output_q):
             # print(kcmd[cmditem]['regexmatch'])
 
             netcmdout = netconn.send_command(kcmd[cmditem]['clicmd'])
+            # netcmdout = netconn.send_command('show run interface vlan1')
             # netcmdout = "bandwidth 10000"
-            print(netcmdout)
+            # print(netcmdout)
 
             #outone = re.search(r"^bandwidth ([0-9]+)", "bandwidth 4000")
             outone = re.search(kcmd[cmditem]['regexmatch'], netcmdout)
@@ -181,13 +185,13 @@ def main():
     # print(csvfileload)
 
     for dev in devoncsv:
-        print("\n"+dev+"\n")
+        # print("\n"+dev+"\n")
         if cfgyamlfileload[dev]:
             for field in cfgyamlfileload[dev]:
-                print("\t"+field)
+                # print("\t"+field)
                 cmd = cfgyamlfileload[dev][field]['clicmd']
                 regex = cfgyamlfileload[dev][field]['regexmatch']
-                print("\t\t"+cmd+"\n\t\t"+regex)
+                # print("\t\t"+cmd+"\n\t\t"+regex)
                 #for i in devfieldlist:
                 #    print(i, devfieldlist[i])
             # switchcmdlist = cfgyamlfileload[dev]
@@ -240,7 +244,7 @@ def main():
 
     while not output_q.empty():
         my_df = output_q.get()
-        print(my_df)
+        # print(my_df)
         csvfileload.update(my_df)
 
     writedftocsv(csvfileload, 'outcsv.csv')
