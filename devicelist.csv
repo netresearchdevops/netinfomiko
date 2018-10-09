@@ -1,4 +1,4 @@
-hostname,ipaddress,devtype,conntype,connport,sitename
+hostname,ipaddress,devtype,connport,conntype,sitename
 MELS1R1,192.168.163.10,router,2001,telnet,MEL
 MELS1R2,192.168.163.20,router,2001,telnet,MEL
 SYDS1R1,192.168.163.11,router,2001,telnet,SYD

@@ -11,7 +11,7 @@ def loadcsvdict(filenam, indexcolnam):
     # Load the csv file and output list of dictionary
 
     devlistdf = pd.read_csv(filenam, index_col=indexcolnam)
-    print(filenam)
+    # print(filenam)
     # return devlistdf.to_records() # convert to list of tuples
     # return devlistdf.to_dict()  # convert to dictionary of headings
     return devlistdf  # return as pandas data frame
@@ -147,12 +147,31 @@ def cmdrun(devname, kdev, kcmd, output_q):
     output_q.put(cmdoutdf)
     # return cmdout
 
+def syntaxdisp(opts):
+    """ Display syntax for runing this module
+
+    """
+
+    syntaxvar = 'Syntax: python infoscrapmodule.py <input_devicelist.csv> <cfg_definitions.yaml> <output_fiel.csv>'
+    print("\n Error: %s\n - Please use the Syntax below\n \t%s \n" % (opts, syntaxvar))
 
 def main():
-    # totalcmdops = len(sys.argv)
+    totalops = len(sys.argv)
+    # print(totalops)
     # cmdops = sys.argv
-
     start_time = datetime.now()
+
+    if totalops <= 3 or totalops > 4:
+        syntaxdisp("mismatch in number of arguments given")
+        return("No input file provided")
+
+    else:
+        # Load CSV Device list in to Pandas dataframe with Hostname as index 
+        csvfileload = loadcsvdict(sys.argv[1], 'hostname')
+
+        # Load YAML configuration definitions
+        cfgyamlfileload = loadconfyml(sys.argv[2])
+        ## print(cfgyamlfileload)
 
 
     # get username credentials
@@ -161,8 +180,7 @@ def main():
     netenablepass = getpass.getpass(prompt='Enter enable password: ')
 
 
-    # global csvfileload 
-    csvfileload = loadcsvdict(sys.argv[1], 'hostname')
+    
     # print(totalcmdops, cmdops)
     # print(type(csvfileload))
     # print(csvfileload)
@@ -224,8 +242,8 @@ def main():
          
         # print(devtoconn)
         cmddict = cfgyamlfileload[csvdict[devitem]['devtype']]
-        #print(cmddict)
-        #print("\n")
+        # print(cmddict)
+        # print("\n")
 
         my_proc = Process(target=cmdrun, args=(devitem, devtoconn, cmddict, output_q))
         my_proc.start()
@@ -246,13 +264,20 @@ def main():
         my_df = output_q.get()
         # print(my_df)
         csvfileload.update(my_df)
+       
+    try:
+        outputfile = sys.argv[3]
+        # print(outputfile)
+    except IndexError:
+        outputfile = 'outcsv.csv'
+    else:
+        writedftocsv(csvfileload, outputfile)
+        print("\n\nOutput is written to file: %s \n" %(outputfile))
 
-    writedftocsv(csvfileload, 'outcsv.csv')
-
-    print("start time: " + str(start_time))
+    # print("start time: " + str(start_time))
     endtime = datetime.now()
-    print("end time: " + str(endtime))
-    print ("\nElapsed time to  run commands: {}s".format(str(datetime.now() - start_time)))
+    # print("end time: " + str(endtime))
+    print ("\nElapsed time to  run commands: {}s".format(str(endtime - start_time)))
 
 
 if __name__ == '__main__':

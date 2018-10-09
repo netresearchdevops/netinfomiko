@@ -1,9 +1,6 @@
-<<<<<<< HEAD
-=======
-hostname,ipaddress,devtype,connport,conntype,sitename,wan bandwidth,vlan1 ip,vlan2 ip,snmp location
-MELS1R1,192.168.163.153,router,22,ssh,MEL,150000,NaN,NaN,"300 Flinders street, Melbourne, Vic 3000"
-SYDS2R1,192.168.163.154,router,22,ssh,SYD,150000,NaN,NaN,"300 Dawson st, Sydney, NSW 2000"
-SYDS2S1,192.168.163.152,switch,23,telnet,SYD,10000,10.221.21.1 255.255.255.0,10.222.201.1 255.255.255.0,"300 Dawson st, Sydney, NSW 2000"
-MELS1S1,192.168.163.151,switch,23,telnet,MEL,20000,10.201.2.1 255.255.254.0,10.202.20.1 255.255.254.0,"300 Flinders street, Melbourne, Vic 3000"
-PERS3S4,192.168.163.155,switch,22,ssh,PER,NaN,NaN,NaN,NaN
->>>>>>> feature/multiprocess
+hostname,ipaddress,devtype,connport,conntype,sitename,wan bandwidth,vlan1 ip,vlan2 ip,snmp location,site code
+MELS1R1,192.168.163.153,router,22,ssh,MEL,NaN,NaN,NaN,NaN,NaN
+SYDS2R1,192.168.163.154,router,22,ssh,SYD,NaN,NaN,NaN,NaN,NaN
+SYDS2S1,192.168.163.152,switch,23,telnet,SYD,NaN,NaN,NaN,NaN,NaN
+MELS1S1,192.168.163.151,switch,23,telnet,MEL,NaN,NaN,NaN,NaN,NaN
+PERS3S4,192.168.163.155,switch,22,ssh,PER,NaN,NaN,NaN,NaN,NaN
