@@ -5,6 +5,7 @@
       - vlan1 ip
       - vlan2 ip
       - snmp location
+      - site code
       
   switch:
     wan bandwidth: &ciscobandwidth
@@ -19,6 +20,9 @@
     snmp location: &ciscosnmplocation
       clicmd: sh run | i snmp-server location
       regexmatch: snmp-server location (.*)
+    site code: &ciscositecode
+      clicmd: sh run | i hostname
+      regexmatch: hostname (.{4})
 
   nexus:
     bgpneigh:
@@ -29,3 +33,4 @@
   router:
     wan bandwidth: *ciscobandwidth
     snmp location: *ciscosnmplocation
+    site code: *ciscositecode
