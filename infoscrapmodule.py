@@ -5,6 +5,7 @@ import getpass
 import re
 from datetime import datetime
 from netmiko import ConnectHandler
+from multiprocessing import Process, Queue
 
 def loadcsvdict(filenam, indexcolnam):
     # Load the csv file and output list of dictionary
@@ -74,7 +75,7 @@ def connruncmd(cmdlist, **devicecon):
     print(cmdout)
     return cmdout
 
-def cmdrun(devname, kdev, kcmd):
+def cmdrun(devname, kdev, kcmd, output_q):
     """ Connect to the device and run the list of commands
 
     - **devcecon is dictionary of below format 
@@ -91,10 +92,11 @@ def cmdrun(devname, kdev, kcmd):
     - *cmdlist is the list of commands to run
     """
 
-    print("cmdrun\n\n")
-    print(kdev)
+    # print("cmdrun\n\n")
+    # print(kdev)
 
     cmdout = {}
+    cmdoutdf = pd.DataFrame()
 
     try:
         netconn = ConnectHandler(**kdev)
@@ -112,11 +114,11 @@ def cmdrun(devname, kdev, kcmd):
             #outone = re.search(r"^bandwidth ([0-9]+)", "bandwidth 4000")
             outone = re.search(kcmd[cmditem]['regexmatch'], netcmdout)
             try:
-                print(outone.group(1))
+                # print(outone.group(1))
                 cmdout[cmditem]=outone.group(1)
             except (IndexError, AttributeError) as err:
                 errorout = "ERROR: "+str(err)
-                print(errorout)
+                # print(errorout)
                 cmdout[cmditem]=errorout
 
         netconn.disconnect()
@@ -129,15 +131,17 @@ def cmdrun(devname, kdev, kcmd):
         cmdout['connstatus'] = 'Success'
         cmdout['notes'] = 'None'
 
-    print(cmdout)
+    # print(cmdout)
  
     for wrcmdout in cmdout:
-        print(cmdout[wrcmdout])
-        print(wrcmdout)
+        # print(cmdout[wrcmdout])
+        # print(wrcmdout)
 
-        csvfileload.loc[devname, wrcmdout] = cmdout[wrcmdout]
+        # csvfileload.loc[devname, wrcmdout] = cmdout[wrcmdout]
+        cmdoutdf.loc[devname, wrcmdout] = cmdout[wrcmdout]
     
-    return cmdout
+    output_q.put(cmdoutdf)
+    # return cmdout
 
 
 def main():
@@ -153,7 +157,7 @@ def main():
     netenablepass = getpass.getpass(prompt='Enter enable password: ')
 
 
-    global csvfileload 
+    # global csvfileload 
     csvfileload = loadcsvdict(sys.argv[1], 'hostname')
     # print(totalcmdops, cmdops)
     # print(type(csvfileload))
@@ -194,6 +198,12 @@ def main():
     # Iterate each record on the CSV Device list
     csvdict = csvfileload.to_dict('index')
     #print(csvdict)
+    
+    #setup multiprocessing queue
+    # output_q = Queue(maxsize=20)
+    output_q = Queue()
+    procs = []
+
     for devitem in csvdict:
         # print(csvdict[devitem])
         devtoconn = {
@@ -213,27 +223,25 @@ def main():
         #print(cmddict)
         #print("\n")
 
-        netconncmdout = cmdrun(devitem, devtoconn, cmddict)
-        print(netconncmdout)
+        my_proc = Process(target=cmdrun, args=(devitem, devtoconn, cmddict, output_q))
+        my_proc.start()
+        procs.append(my_proc)
+
+        
+        # netconncmdout = cmdrun(devitem, devtoconn, cmddict)
+        # print(netconncmdout)
 
     #print("data frame bandwidth")
     # print(csvfileload['wan bandwidth'])
 
-    """
-    r2 = {
-    'device_type': 'cisco_ios_telnet',
-    'ip':   '192.168.239.135',
-    'username': netuser,
-    'password': netpass,
-    'port' : 5006,          # optional, defaults to 22
-    'secret': netenablepass,     # optional, defaults to ''
-    'verbose': False,       # optional, defaults to False
-    }
+    # Make sure all processes have finished
+    for a_proc in procs:
+        a_proc.join()
 
-    """
-    # r2cmd = ['show ver', 'show int desc']
-
-    # connruncmd(r2cmd, **r2)
+    while not output_q.empty():
+        my_df = output_q.get()
+        print(my_df)
+        csvfileload.update(my_df)
 
     writedftocsv(csvfileload, 'outcsv.csv')
 
