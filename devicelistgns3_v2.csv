@@ -1,6 +1,6 @@
 hostname,ipaddress,devtype,connport,conntype,sitename
 MELS1R1,192.168.163.153,router,22,ssh,MEL
-SYDS2R1,192.168.163.154,router,22,ssh,SYD
-SYDS2S1,192.168.163.152,switch,23,telnet,SYD
-MELS1S1,192.168.163.151,switch,23,telnet,MEL
+SYDS2R1,192.168.163.152,router,22,ssh,SYD
+SYDS2S1,192.168.163.151,switch,23,telnet,SYD
+MELS1S1,192.168.163.154,switch,23,telnet,MEL
 PERS3S4,192.168.163.155,switch,22,ssh,PER

@@ -104,6 +104,7 @@ def cmdrun(devname, kdev, kcmd, output_q):
         netconn.find_prompt()
 
         # print(kdev)
+        print(devname)
 
         for cmditem in kcmd:
             # print(cmditem)
@@ -113,13 +114,20 @@ def cmdrun(devname, kdev, kcmd, output_q):
             netcmdout = netconn.send_command(kcmd[cmditem]['clicmd'])
             # netcmdout = netconn.send_command('show run interface vlan1')
             # netcmdout = "bandwidth 10000"
-            # print(netcmdout)
+            #print(netcmdout)
+            #print(type(netcmdout))
 
             #outone = re.search(r"^bandwidth ([0-9]+)", "bandwidth 4000")
-            outone = re.search(kcmd[cmditem]['regexmatch'], netcmdout)
+            #outone = re.search(kcmd[cmditem]['regexmatch'], netcmdout)
+            outone = re.findall(kcmd[cmditem]['regexmatch'], netcmdout)
+            print(outone)
+            print(type(outone))
+            print(';'.join(outone))
+
             try:
                 # print(outone.group(1))
-                cmdout[cmditem]=outone.group(1)
+                # cmdout[cmditem]=outone.group(1)
+                cmdout[cmditem]=';'.join(outone)
             except (IndexError, AttributeError) as err:
                 errorout = "ERROR: "+str(err)
                 # print(errorout)
