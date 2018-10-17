@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# coding=utf-8
+
 import sys
 import pandas as pd
 import yaml
@@ -122,12 +125,12 @@ def cmdrun(devname, kdev, kcmd, output_q):
             outone = re.findall(kcmd[cmditem]['regexmatch'], netcmdout)
             print(outone)
             print(type(outone))
-            print(';'.join(outone))
+            print('\n'.join(outone))
 
             try:
                 # print(outone.group(1))
                 # cmdout[cmditem]=outone.group(1)
-                cmdout[cmditem]=';'.join(outone)
+                cmdout[cmditem]='\n'.join(outone)
             except (IndexError, AttributeError) as err:
                 errorout = "ERROR: "+str(err)
                 # print(errorout)
@@ -206,7 +209,7 @@ def main():
     csvoutheadings = cfgyamlfileload['outputcsv']['headings']
     # print(csvoutheadings)
     for outheads in csvoutheadings:
-        csvfileload[outheads] = 'NaN'
+        csvfileload[outheads] = ''
     
     # print(csvfileload)
 
