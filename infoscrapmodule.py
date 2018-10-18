@@ -125,12 +125,12 @@ def cmdrun(devname, kdev, kcmd, output_q):
             outone = re.findall(kcmd[cmditem]['regexmatch'], netcmdout)
             print(outone)
             print(type(outone))
-            print('\n'.join(outone))
+            print(';'.join(outone))
 
             try:
                 # print(outone.group(1))
                 # cmdout[cmditem]=outone.group(1)
-                cmdout[cmditem]='\n'.join(outone)
+                cmdout[cmditem]=';'.join(outone)
             except (IndexError, AttributeError) as err:
                 errorout = "ERROR: "+str(err)
                 # print(errorout)
