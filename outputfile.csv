@@ -1,0 +1,6 @@
+hostname,ipaddress,devtype,connport,conntype,sitename,wan bandwidth,vlan1 ip,vlan2 ip,snmp location,site code,bgp networks
+MELS1R1,192.168.163.153,router,22,ssh,MEL,150000,NaN,NaN,"300 Flinders street, Melbourne, Vic 3000",MELS, network 101.30.0.0 mask 255.255.254.0
+SYDS2R1,192.168.163.154,router,22,ssh,SYD,150000,NaN,NaN,"300 Dawson st, Sydney, NSW 2000",SYDS,
+SYDS2S1,192.168.163.152,switch,23,telnet,SYD,20000,10.201.2.1 255.255.254.0,10.202.20.1 255.255.254.0,"300 Flinders street, Melbourne, Vic 3000",MELS,NaN
+MELS1S1,192.168.163.151,switch,23,telnet,MEL,10000,10.221.21.1 255.255.255.0,10.222.201.1 255.255.255.0,"300 Dawson st, Sydney, NSW 2000",SYDS,NaN
+PERS3S4,192.168.163.155,switch,22,ssh,PER,NaN,NaN,NaN,NaN,NaN,NaN

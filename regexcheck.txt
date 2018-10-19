@@ -1,4 +1,4 @@
  bandwidth 4000
  ip address 10.201.2.1 255.255.254.0
  snmp-server location 300 Flinders street, Melbourne, Vic 3000
-
+hostname SYDS2S1
