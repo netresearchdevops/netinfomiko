@@ -15,7 +15,7 @@ python infoscrapmodule.py devicelistgsn3.csv cfgdescswitch.yaml output.csv
 # runcmdlist
 
 ## Usage
-    Syntax: infoscrapmodule.py <devicelist.csv> <command_list_definitions.yaml> <output.csv>
+    Syntax: runcmdlist.py <devicelist.csv> <command_list_definitions.yaml> <output.csv>
         - devicelist.csv
             - device list csv with beblow headings
                 -   `hostname,ipaddress,devtype,conntype,connport,sitename`
@@ -24,7 +24,7 @@ python infoscrapmodule.py devicelistgsn3.csv cfgdescswitch.yaml output.csv
         - output.csv
             - name of the output file in csv format showing the status of each devices command run status
 ## example
-python runcmdllsit.py devicelistgns3_v2.csv cmdlist.yaml cmdoutcsv.csv
+python runcmdlist.py devicelistgns3_v2.csv cmdlist.yaml cmdoutcsv.csv
 
 
 python runcmdllsit.py devicelistgns3_v2.csv cmdlist.yaml cmdoutcsv.csv

@@ -96,7 +96,7 @@ def runcmdlist(devname, kdev, kcmd, koutdir, output_q):
     # write_to_file(filename, 'a', '\n'.join(kcmd))
 
     fp.write("! " + devname + "\n\n") 
-    fp.write("! Capture time: " + timestr + "\n\n")
+    fp.write("! Capture time: " + str(timenow) + "\n\n")
 
     try:
         netconn = ConnectHandler(**kdev)
@@ -106,7 +106,7 @@ def runcmdlist(devname, kdev, kcmd, koutdir, output_q):
 
         for icmd in kcmd:
             print(icmd)
-            fp.write("\n!"+icmd+"\n\n")
+            fp.write("\n\n\n!"+icmd+"\n\n")
 
             netcmdout = netconn.send_command(icmd)
             # print(netcmdout)
