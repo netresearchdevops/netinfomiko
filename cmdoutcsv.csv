@@ -1,6 +1,7 @@
-hostname,ipaddress,devtype,connport,conntype,sitename,connstatus,notes
-MELS1R1,192.168.163.153,router,22,ssh,MEL,Success,None
-SYDS2R1,192.168.163.152,router,22,ssh,SYD,Success,None
-SYDS2S1,192.168.163.151,switch,23,telnet,SYD,Success,None
-MELS1S1,192.168.163.154,switch,23,telnet,MEL,Success,None
-PERS3S4,192.168.163.155,switch,22,ssh,PER,Failed,Connection to device timed-out: cisco_ios 192.168.163.155:22
+hostname,ipaddress,devtype,connport,conntype,frimwaretype,sitename,connstatus,notes
+MELS1R1,192.168.163.153,router,22,ssh,ios,MEL,Failed,Connection to device timed-out: cisco_ios 192.168.163.153:22
+SYDS2R1,192.168.163.152,router,22,ssh,ios,SYD,Failed,Connection to device timed-out: cisco_ios 192.168.163.152:22
+SYDS2S1,192.168.163.151,switch,23,telnet,ios,SYD,Failed,"[WinError 10060] A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond"
+MELS1S1,192.168.163.154,switch,23,telnet,ios,MEL,Failed,"[WinError 10060] A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond"
+PERS3S4,192.168.163.155,switch,22,ssh,ios,PER,Failed,Connection to device timed-out: cisco_ios 192.168.163.155:22
+NTRS1A1,192.168.163.155,firewall,22,ssh,asa,NTR,Failed,Connection to device timed-out: cisco_asa 192.168.163.155:22

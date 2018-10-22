@@ -22,3 +22,10 @@
     - show ip protocols
     - show run
 
+  firewall:
+    - show clock
+    - show ip
+    - show ip protocols
+    - show run
+  
+

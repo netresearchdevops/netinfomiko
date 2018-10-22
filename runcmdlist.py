@@ -13,6 +13,32 @@ from multiprocessing import Process, Queue
 import infoscrapmodule as infomod
 from pathlib import Path
 
+def setdevtype(devtype, conntype):
+    """ Setup the devtype to one of the supported Netmiko device types
+
+    The scope of this fucntion is only to set to cisco device types
+
+    """
+    nmdevtype = { 
+        'ios':  'cisco_ios', 
+        'iosxe': 'cisco_xe', 
+        'asa': 'cisco_asa', 
+        'nxos': 'cisco_nxos', 
+        'iosxr': 'cisco_xr', 
+        'wlc': 'cisco_wlc_ssh', 
+    }
+    print(devtype, conntype)
+
+
+    try:
+        intrimdevtype = nmdevtype[devtype]
+        rdevtype = intrimdevtype if conntype == 'ssh' else (intrimdevtype+"_telnet")
+    except KeyError as err:
+        return "Error: unrecongised device type : " + str(err)
+    else:
+        return rdevtype
+
+
 def makedir(dirname):
     """ created the directory
 
@@ -198,8 +224,10 @@ def main():
 
     for devitem in csvdict:
         # print(csvdict[devitem])
+        #print(setdevtype[])
         devtoconn = {
-            'device_type': 'cisco_ios' if csvdict[devitem]['conntype'] == 'ssh' else 'cisco_ios_telnet',
+            # 'device_type': 'cisco_ios' if csvdict[devitem]['conntype'] == 'ssh' else 'cisco_ios_telnet',
+            'device_type': setdevtype(csvdict[devitem]['frimwaretype'], csvdict[devitem]['conntype']),
             'ip': csvdict[devitem]['ipaddress'],
             'port': csvdict[devitem]['connport'],   # optional, defaults to 22
             'username': netuser,
@@ -210,7 +238,7 @@ def main():
         #print(csvfileload[devitem])
 
          
-        # print(devtoconn)
+        print(devtoconn)
         cmddict = cfgyamlfileload[csvdict[devitem]['devtype']]
         # print(cmddict)
         # print("\n")
