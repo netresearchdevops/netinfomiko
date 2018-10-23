@@ -7,7 +7,8 @@
 
 #ignore environment variables
 venv_*
-
+/output
+/testout*
 #ignore django app files
 *.pyc
 *~

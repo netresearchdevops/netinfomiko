@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# coding=utf-8
+
 import sys
 import pandas as pd
 import yaml
@@ -206,7 +209,7 @@ def main():
     csvoutheadings = cfgyamlfileload['outputcsv']['headings']
     # print(csvoutheadings)
     for outheads in csvoutheadings:
-        csvfileload[outheads] = 'NaN'
+        csvfileload[outheads] = ''
     
     # print(csvfileload)
 

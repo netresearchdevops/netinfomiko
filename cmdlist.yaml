@@ -1,0 +1,32 @@
+---
+# YAML config for runcmdlist.py
+  moduleconf:
+    output: seperate file
+    outputdir: outputdir
+
+  switch:
+    - show clock
+    - show int desc
+    - show ver
+    - show vlan
+
+  router:
+    - show clock
+    - show int desc
+    - show ip protocols
+    - show run
+  
+  nexus:
+    - show clock
+    - show vpc
+    - show int desc
+    - show ip protocols
+    - show run
+
+  firewall:
+    - show clock
+    - show ip
+    - show ip protocols
+    - show run
+  
+
