@@ -11,4 +11,8 @@ pipelines:
         caches:
           - pip
         script: # Modify the commands below to build your repository.
-          - pip install -r requirements.txt
+          # - pip install -r requirements.txt
+          - pip3 install django
+          - pip3 install pandas
+          - pip3 install netmiko
+          - pip3 install pyyaml
