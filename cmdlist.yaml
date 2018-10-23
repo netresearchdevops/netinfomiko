@@ -2,7 +2,7 @@
 # YAML config for runcmdlist.py
   moduleconf:
     output: seperate file
-    outputdir: testout1
+    outputdir: outputdir
 
   switch:
     - show clock
@@ -16,8 +16,9 @@
     - show ip protocols
     - show run
   
-  nxos:
+  nexus:
     - show clock
+    - show vpc
     - show int desc
     - show ip protocols
     - show run

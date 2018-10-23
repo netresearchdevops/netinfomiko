@@ -238,7 +238,7 @@ def main():
         #print(csvfileload[devitem])
 
          
-        print(devtoconn)
+        # print(devtoconn)
         cmddict = cfgyamlfileload[csvdict[devitem]['devtype']]
         # print(cmddict)
         # print("\n")
