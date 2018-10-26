@@ -1,4 +1,5 @@
-# infoscrapper
+# netinfomiko
+Previously known as infoscrapper in bitbucket repo
 
 ## Usage
     Syntax: infoscrapmodule.py <devicelist.csv> <scapcfgdefinitions.yaml> <output.csv>
